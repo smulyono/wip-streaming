@@ -1,0 +1,53 @@
+<apex:page showHeader="true" sidebar="true">
+ <body>
+ <div id="content">
+    <p>Notifications should appear here...</p>
+ </div>
+<!-- Pickup the cometd library version 2.6.0 -->
+<!-- cometd.js picked up from the target/org/cometd.js -->
+<apex:includeScript value="{!URLFOR($Resource.cometd,'cometd.js')}"/>
+<!-- need jquery library -->
+<apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+<!-- cometd wrapper in jQuery -->
+<apex:includeScript value="{!URLFOR($Resource.cometd,'jquery.cometd/jquery.cometd.js')}"/>
+<script type="text/javascript">
+var $ = jQuery.noConflict();
+$(document).ready(function() {
+    // use long polling instead since Force.com only allow long-polling and not
+    // websocket connection
+    // http://cometd.org/documentation/2.x/howtos/websocket
+    $.cometd.websocketEnabled =false;
+
+    // Connect to the CometD endpoint
+    $.cometd.configure({
+        url: 'https://' + window.location.hostname + '/cometd/27.0',
+        requestHeaders: { Authorization: 'OAuth {!$Api.Session_ID}'},
+        appendMessageTypeToURL : false,
+        logLevel : "info"
+    });
+
+    function _handleMessage(message){
+        $('#content').append('<p>Notification: ' +
+                 'Channel: ' + JSON.stringify(message.channel) + '<br>' +
+                 'Record name: ' + JSON.stringify(message.data.sobject.Name) + '<br>' +
+                 'ID: ' + JSON.stringify(message.data.sobject.Id) + '<br>' +
+                 'Event type: ' + JSON.stringify(message.data.event.type)+'<br>' +
+            'Created: ' + JSON.stringify(message.data.event.createdDate) + '</p>');
+     }
+
+    $.cometd.addListener('/meta/handshake', function(message){
+        if (message.successful){
+            $('#content').append('Handshake completed!');
+            // Subscribe to a topic. JSON-encoded update will be returned
+            // in the callback
+            $.cometd.subscribe('/topic/allleads', _handleMessage);
+         }
+    });
+
+    $.cometd.handshake();
+});
+ </script>
+
+<c:BootstrapComponent />
+ </body>
+</apex:page>

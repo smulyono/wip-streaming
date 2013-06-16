@@ -1,0 +1,28 @@
+{
+    "StreamingStartPage.page": {
+        "createdById": "005E0000000Vb7fIAC", 
+        "createdByName": "Sanny Mulyono", 
+        "createdDate": "2013-06-15 21:18:15", 
+        "fileName": "unpackaged/pages/StreamingStartPage.page", 
+        "fullName": "StreamingStartPage", 
+        "id": "066E0000001WOaKIAW", 
+        "lastModifiedById": "005E0000000Vb7fIAC", 
+        "lastModifiedByName": "Sanny Mulyono", 
+        "lastModifiedDate": "2013-06-16 10:00:30", 
+        "manageableState": "unmanaged", 
+        "type": "ApexPage"
+    }, 
+    "cometd.resource": {
+        "createdById": "005E0000000Vb7fIAC", 
+        "createdByName": "Sanny Mulyono", 
+        "createdDate": "2013-06-15 21:11:56", 
+        "fileName": "unpackaged/staticresources/cometd.resource", 
+        "fullName": "cometd", 
+        "id": "081E0000000Yk4fIAC", 
+        "lastModifiedById": "005E0000000Vb7fIAC", 
+        "lastModifiedByName": "Sanny Mulyono", 
+        "lastModifiedDate": "2013-06-16 09:54:02", 
+        "manageableState": "unmanaged", 
+        "type": "StaticResource"
+    }
+}
